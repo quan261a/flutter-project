@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'profile_screen.dart';
+import 'settings_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -9,27 +9,32 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Chào mừng bạn đến với trang chủ!',
-      style: TextStyle(fontSize: 24),
+  final List<Widget> _widgetOptions = <Widget>[
+    Center(
+      child: Text(
+        'Chào mừng bạn đến với trang chủ!',
+        style: TextStyle(fontSize: 24),
+      ),
     ),
-    Placeholder(),
-    Placeholder(),
-    Placeholder(),
+    Center(
+      child: Text(
+        'Lời giải',
+        style: TextStyle(fontSize: 24),
+      ),
+    ),
+    Center(
+      child: Text(
+        'Thêm mới',
+        style: TextStyle(fontSize: 24),
+      ),
+    ),
+    SettingsScreen(),
   ];
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
-  }
-
-  void _navigateToProfileScreen(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ProfileScreen()),
-    );
   }
 
   @override
@@ -39,10 +44,9 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text('Trang chủ'),
         backgroundColor: Colors.blueGrey,
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+      body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -53,23 +57,18 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Lời giải',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add),
+            icon: Icon(Icons.add_circle_outline),
             label: 'Thêm mới',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.supervised_user_circle),
-            label: 'Hồ sơ',
+            icon: Icon(Icons.settings),
+            label: 'Cài đặt',
           ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.blue,
-        backgroundColor: Colors.deepPurpleAccent,
-        onTap: (index) {
-          _onItemTapped(index);
-          if (index == 3) {
-            _navigateToProfileScreen(context);
-          }
-        },
+        backgroundColor: Colors.green,  // Change this to your desired color
+        onTap: _onItemTapped,
       ),
     );
   }
